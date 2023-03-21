@@ -5,33 +5,26 @@ import kotlin.math.round
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class Dice (isComputer: Boolean) {
+class Dice (isComputer: Boolean, private val WIN_SCORE: Int = 30) {
 
     companion object{
         private const val COMPUTER_MAX_SCORE = 20
         private const val TAG = "DICE"
     }
 
-    private var totalScore: Int
-    private var roundScore: Int
+    private var totalScore = 0
+    private var roundScore = 0
     private var dice1 = 1
     private var dice2 = 1
     private val isComputer = isComputer
 
-    init {
-        totalScore = 0
-        roundScore = 0;
-    }
-
     // rolls two dice
-    // if either of them is 0, return false since there turn is over
-    // if it's for computer, then if the roundScore exceeds the maximum, return false as well
-    // otherwise return true indicating that they can roll again
+    // if either of them is 1, return true since there turn is over
+    // if it's for computer, then if the roundScore exceeds the maximum, return true as well
+    // otherwise return false indicating that they can roll again
     fun rollDice(): Boolean{
-        dice1 = Random.nextInt(1,6)
-        dice2 = Random.nextInt(1,6)
-        Log.i(TAG, "Dice1: $dice1")
-        Log.i(TAG, "Dice2: $dice2")
+        dice1 = Random.nextInt(1,7)
+        dice2 = Random.nextInt(1,7)
 
         // if both of them are 1, the total is set back to 0
         if(dice1 == 1 && dice2 == 1){
@@ -45,7 +38,7 @@ class Dice (isComputer: Boolean) {
             return true
         }
         roundScore += dice1 + dice2
-        if(isComputer && roundScore > COMPUTER_MAX_SCORE) return true
+        if(isComputer && roundScore >= COMPUTER_MAX_SCORE) return true
         return false
     }
 
@@ -61,6 +54,8 @@ class Dice (isComputer: Boolean) {
     fun getDice1(): Int { return dice1 }
 
     fun getDice2(): Int { return dice2 }
+
+    fun haveWon(): Boolean { return totalScore + roundScore >= WIN_SCORE }
 
     private fun updateScore(){
         totalScore += roundScore
