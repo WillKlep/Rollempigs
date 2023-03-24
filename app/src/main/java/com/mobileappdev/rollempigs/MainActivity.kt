@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         setupBoard(vsComputer)
     }
 
+    // explain
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
@@ -59,8 +60,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            // explain
             R.id.miRefresh -> {
-                // if the game has already started, show alert message
+                // explain
                 if(!gameFinished && (player1.getTotalScore() != 0 || player2.getTotalScore() != 0)) {
                     showAlertDialog("Quit your current game?", null, View.OnClickListener {
                         setupBoard(vsComputer)
@@ -68,7 +70,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 else setupBoard(vsComputer)
             }
+            // explain
             R.id.miChangeMode -> {
+                // explain
                 var mode = if(vsComputer) "Player vs Player" else "Player vs Computer"
                 showAlertDialog("Change to $mode?", null, View.OnClickListener {
                     vsComputer = !vsComputer
@@ -82,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     fun rollBtnClicked(view: View?){
         val player = if(player1Turn) player1 else player2
         if (player.haveWon()){
+            // explain
             Snackbar.make(clRoot, "You already won!", Snackbar.LENGTH_LONG).show()
             return
         }
@@ -91,12 +96,14 @@ class MainActivity : AppCompatActivity() {
             gameFinished = true
             stopBtnClicked(view)
         }
+        // explain
         dice1.setImageResource(DICE[player.getDice1() - 1])
         dice2.setImageResource(DICE[player.getDice2() - 1])
         roundScoreText.text = "Round Score: ${player.getRoundScore()}"
     }
 
     fun stopBtnClicked(view: View?){
+        // explain
         if(!stopBtnEnable) {
             var text = if(gameFinished) "You have already won"
             else if(vsComputer && !player1Turn) "You cannot stop when computer's turn"
@@ -115,6 +122,7 @@ class MainActivity : AppCompatActivity() {
                 player1Text.setBackgroundResource(R.color.won)
                 return
             }
+            // explain
             player2Text.setBackgroundResource(R.color.highlight)
             player1Text.setBackgroundResource(R.color.white)
         }
@@ -131,6 +139,7 @@ class MainActivity : AppCompatActivity() {
         player1Turn = !player1Turn
     }
 
+    // explain
     private fun showAlertDialog(title: String, view: View?, positiveClickListener: OnClickListener){
         AlertDialog.Builder(this)
         AlertDialog.Builder(this)
@@ -147,6 +156,7 @@ class MainActivity : AppCompatActivity() {
         player2 = if (vsComputer) Dice(true) else Dice(false)
         text1 = if(vsComputer) "Player" else "Player1"
         text2 = if (vsComputer) "Computer" else "Player2"
+        roundScoreText.text= "Round Score: 0"
 
         player1Text.text = "$text1: 0"
         player2Text.text = "$text2: 0"

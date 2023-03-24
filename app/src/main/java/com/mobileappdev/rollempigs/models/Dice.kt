@@ -5,11 +5,11 @@ import kotlin.math.round
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class Dice (isComputer: Boolean, private val WIN_SCORE: Int = 30) {
+class Dice (isComputer: Boolean, private val WIN_SCORE: Int = 100) {
 
+    // explain
     companion object{
         private const val COMPUTER_MAX_SCORE = 20
-        private const val TAG = "DICE"
     }
 
     private var totalScore = 0
